@@ -7,6 +7,7 @@ function AuthProvider({ children }) {
 
     const [data, setData] = useState({});
 
+
     async function signIn({ email, password }) {
         try {
             const response = await api.post("/sessions", { email, password });
@@ -26,6 +27,7 @@ function AuthProvider({ children }) {
     }
 
     function signOut({ }) {
+
         localStorage.removeItem("@rocketnotes:user");
         localStorage.removeItem("@rocketnotes:token");
 
@@ -34,12 +36,12 @@ function AuthProvider({ children }) {
 
     async function updateProfile({ user, avatarFile }) {
 
-        //if(avatarFile) {
-        //const fileUploadForm = new FormData();
-        //fileUploadForm.append("avatar", avatarFile);
-        //      const response = await api.patch("/users/avatar", fileUploadForm);
-        //user.avatar = response.data.avatar;
-        //}
+        if (avatarFile) {
+            const fileUploadForm = new FormData();
+            fileUploadForm.append("avatar", avatarFile);
+            const response = await api.patch("/users/avatar", fileUploadForm);
+            user.avatar = response.data.avatar;
+        }
 
         try {
             await api.put("/users", user);
