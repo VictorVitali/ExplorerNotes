@@ -16,15 +16,20 @@ export function SignIn() {
         signIn({ email, password });
     }
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        handleSignIn();
+    }
+
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <h1>Rocket Notes</h1>
                 <p>Aplicação para salvar e gerenciar seus links úties.</p>
                 <h2>Faça seu login</h2>
                 <Input placeholder="E-mail" type="text" icon={FiMail} onChange={ e => setEmail(e.target.value)}/>
                 <Input placeholder="Senha" type="password" icon={FiLock} onChange={ e => setPassword(e.target.value)}/>
-                <Button title="Entrar" onClick={handleSignIn}> </Button>
+                <Button title="Entrar" type="submit" onClick={handleSignIn}> </Button>
                 <Link to="/register">Criar Conta</Link>
             </Form>
             <Background />
